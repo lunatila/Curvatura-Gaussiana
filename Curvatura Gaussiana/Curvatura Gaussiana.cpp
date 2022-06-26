@@ -42,6 +42,7 @@ int main(int argc, char**argv)
                 float h[9];
                 float hstar[9];
 
+
                 F.normal(xyz, grad);
                 F.hess(xyz, h);
                 F.hs(h, hstar);
