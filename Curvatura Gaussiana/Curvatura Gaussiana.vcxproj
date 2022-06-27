@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="Curvatura Gaussiana.cpp" />
     <ClCompile Include="Function.cpp" />
+    <ClCompile Include="MS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Function.h" />
+    <ClInclude Include="MS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

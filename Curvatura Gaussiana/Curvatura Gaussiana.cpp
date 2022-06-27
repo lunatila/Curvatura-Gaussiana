@@ -62,8 +62,10 @@ int main(int argc, char**argv)
             }
         }
     }
-    cout << cgmax << ", " << cgmin << endl;
-    cout << cmax << ", " << cmin << endl;
+    //cout << cgmax << ", " << cgmin << endl;
+    //cout << cmax << ", " << cmin << endl;
+    cout << "Curvatura Gaussiana: digite 0" << endl;
+    cout << "Curvatura Media: digite 1" << endl;
     cin >> F.GaussOrMedian;
 
     glutInit(&argc, argv);

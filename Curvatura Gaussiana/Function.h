@@ -2,15 +2,16 @@
 #include <cmath>
 #include <GL/glut.h>
 #include <iostream>
+
 using namespace std;
 
 class Function
 {
+public:
 	float xmin, xmax, ymin, ymax, zmin, zmax;
 	int n;
-	
-public:
-	int GaussOrMedian;
+
+	int GaussOrMedian = 0;
 	Function(float xm = -1, float xM = 1,
 		float ym = -1, float yM = 1,
 		float zm = -1, float zM = 1, int p = 10)

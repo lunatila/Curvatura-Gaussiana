@@ -126,6 +126,8 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 			hs(h, hstar);
 			curvaturaMedia[0] = curvatura_media(nv, h);
 			glColor3f(-curvaturaMedia[0], 0, 0);
+			if (abs(curvaturaMedia[0]) < 0.00001)
+				glColor3f(0, 0, 1);
 			//glNormal3fv(nv);
 			glVertex3fv(p[0]);
 
@@ -134,6 +136,8 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 			hs(h, hstar);
 			curvaturaMedia[1] = curvatura_media(nv, h);
 			glColor3f(-curvaturaMedia[1], 0, 0);
+			if (abs(curvaturaMedia[0]) < 0.00001)
+				glColor3f(0, 0, 1);
 			//glNormal3fv(nv);
 			glVertex3fv(p[1]);
 
@@ -142,6 +146,8 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 			hs(h, hstar);
 			curvaturaMedia[2] = curvatura_media(nv, h);
 			glColor3f(-curvaturaMedia[2], 0, 0);
+			if (abs(curvaturaMedia[0]) < 0.00001)
+				glColor3f(0, 0, 1);
 			//glNormal3fv(nv);
 			glVertex3fv(p[2]);
 			glEnd();
@@ -182,6 +188,8 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 			hs(h, hstar);
 			curvaturaMedia[0] = curvatura_media(nv, h);
 			glColor3f(-curvaturaMedia[0], 0, 0);
+			if (abs(curvaturaMedia[0]) < 0.00001)
+				glColor3f(0, 0, 1);
 			//glNormal3fv(nv);
 			glVertex3fv(p[0]);
 
@@ -190,6 +198,8 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 			hs(h, hstar);
 			curvaturaMedia[1] = curvatura_media(nv, h);
 			glColor3f(-curvaturaMedia[1], 0, 0);
+			if (abs(curvaturaMedia[0]) < 0.00001)
+				glColor3f(0, 0, 1);
 			//glNormal3fv(nv);
 			glVertex3fv(p[1]);
 
@@ -198,6 +208,8 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 			hs(h, hstar);
 			curvaturaMedia[2] = curvatura_media(nv, h);
 			glColor3f(-curvaturaMedia[2], 0,0);
+			if (abs(curvaturaMedia[0]) < 0.00001)
+				glColor3f(0, 0, 1);
 			//glNormal3fv(nv);
 			glVertex3fv(p[2]);
 
@@ -206,6 +218,8 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 			hs(h, hstar);
 			curvaturaMedia[3] = curvatura_media(nv, h);
 			glColor3f(-curvaturaMedia[3], 0, 0);
+			if (abs(curvaturaMedia[0]) < 0.00001)
+				glColor3f(0, 0, 1);
 			//glNormal3fv(nv);
 			glVertex3fv(p[3]);
 			glEnd();
