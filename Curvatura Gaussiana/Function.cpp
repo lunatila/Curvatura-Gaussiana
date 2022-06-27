@@ -50,6 +50,7 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 	float h[9];
 	float hstar[9];
 	float curvaturaGaussiana[4];
+	float curvaturaMedia[4];
 	float xyzG[4][3];
 	int ind = 0;
 	//glDisable(GL_LIGHTING);
@@ -118,182 +119,132 @@ void Function::tetraedro(float* v0, float* v1, float* v2, float* v3)
 	}
 	if (ind == 3) {
 		
-#ifdef LINE
-		glBegin(GL_LINE_LOOP);
-		glVertex3fv(p[0]);
-		glVertex3fv(p[1]);
-		glVertex3fv(p[2]);
-		glEnd();
-#endif
-#ifndef LINE
-		glBegin(GL_TRIANGLES);
-		normal(p[0], nv);
-		hess(p[0], h);
-		hs(h, hstar);
-		curvaturaGaussiana[0] = curvatura_gaussiana(nv, h, hstar);
-		glColor3f(-(curvaturaGaussiana[0] - 1) / 2, (curvaturaGaussiana[0] + 1) / 2, 0);
-		//glNormal3fv(nv);
-		glVertex3fv(p[0]);
+		if (GaussOrMedian == 1) {
+			glBegin(GL_TRIANGLES);
+			normal(p[0], nv);
+			hess(p[0], h);
+			hs(h, hstar);
+			curvaturaMedia[0] = curvatura_media(nv, h);
+			glColor3f(-curvaturaMedia[0], 0, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[0]);
 
-		normal(p[1], nv);
-		hess(p[1], h);
-		hs(h, hstar);
-		curvaturaGaussiana[1] = curvatura_gaussiana(nv, h, hstar);
-		glColor3f(-(curvaturaGaussiana[1] - 1) / 2, (curvaturaGaussiana[1] + 1) / 2, 0);
-		//glNormal3fv(nv);
-		glVertex3fv(p[1]);
+			normal(p[1], nv);
+			hess(p[1], h);
+			hs(h, hstar);
+			curvaturaMedia[1] = curvatura_media(nv, h);
+			glColor3f(-curvaturaMedia[1], 0, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[1]);
 
-		normal(p[2], nv);
-		hess(p[2], h);
-		hs(h, hstar);
-		curvaturaGaussiana[2] = curvatura_gaussiana(nv, h, hstar);
-		glColor3f(-(curvaturaGaussiana[2] - 1) / 2, (curvaturaGaussiana[2] + 1) / 2, 0);
-		//glNormal3fv(nv);
-		glVertex3fv(p[2]);
-		glEnd();
-
-		/*bool temgauss[3] = {false,false,false};
-		if (curvaturaGaussiana[0] * curvaturaGaussiana[1] < 0) {
-			xyzG[0][0] = (p[0][0] + p[1][0]) / 2;
-			xyzG[0][1] = (p[0][1] + p[1][1]) / 2;
-			xyzG[0][2] = (p[0][2] + p[1][2]) / 2;
-			temgauss[0] = true;
-		}
-		if (curvaturaGaussiana[0] * curvaturaGaussiana[2] < 0) {
-			xyzG[1][0] = (p[0][0] + p[2][0]) / 2;
-			xyzG[1][1] = (p[0][1] + p[2][1]) / 2;
-			xyzG[1][2] = (p[0][2] + p[2][2]) / 2;
-			temgauss[1] = true;
-		}
-		if (curvaturaGaussiana[1] * curvaturaGaussiana[2] < 0) {
-			xyzG[2][0] = (p[1][0] + p[2][0]) / 2;
-			xyzG[2][1] = (p[1][1] + p[2][1]) / 2;
-			xyzG[2][2] = (p[1][2] + p[2][2]) / 2;
-			temgauss[2] = true;
-		}
-		if (temgauss[0] && temgauss[1]) {
-			glColor3f(0, 0, 1);
-			glBegin(GL_LINE);
-			glVertex3fv(xyzG[0]);
-			glVertex3fv(xyzG[1]);
+			normal(p[2], nv);
+			hess(p[2], h);
+			hs(h, hstar);
+			curvaturaMedia[2] = curvatura_media(nv, h);
+			glColor3f(-curvaturaMedia[2], 0, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[2]);
 			glEnd();
 		}
-		if (temgauss[2] && temgauss[1]) {
-			glColor3f(0, 0, 1);
-			glBegin(GL_LINE);
-			glVertex3fv(xyzG[2]);
-			glVertex3fv(xyzG[1]);
+		else {
+			glBegin(GL_TRIANGLES);
+			normal(p[0], nv);
+			hess(p[0], h);
+			hs(h, hstar);
+			curvaturaGaussiana[0] = curvatura_gaussiana(nv, h, hstar);
+			glColor3f(-(curvaturaGaussiana[0] - 1) / 2, (curvaturaGaussiana[0] + 1) / 2, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[0]);
+
+			normal(p[1], nv);
+			hess(p[1], h);
+			hs(h, hstar);
+			curvaturaGaussiana[1] = curvatura_gaussiana(nv, h, hstar);
+			glColor3f(-(curvaturaGaussiana[1] - 1) / 2, (curvaturaGaussiana[1] + 1) / 2, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[1]);
+
+			normal(p[2], nv);
+			hess(p[2], h);
+			hs(h, hstar);
+			curvaturaGaussiana[2] = curvatura_gaussiana(nv, h, hstar);
+			glColor3f(-(curvaturaGaussiana[2] - 1) / 2, (curvaturaGaussiana[2] + 1) / 2, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[2]);
 			glEnd();
 		}
-		if (temgauss[0] && temgauss[2]) {
-			glColor3f(0, 0, 1);
-			glBegin(GL_LINE);
-			glVertex3fv(xyzG[0]);
-			glVertex3fv(xyzG[2]);
-			glEnd();
-		}*/
-#endif
-
 	}
 	if (ind == 4) {
-		glColor3f(1, 0, 0); // MUDAR AQUI
-#ifdef LINE
-		glBegin(GL_LINE_LOOP);
-		glVertex3fv(p[0]);
-		glVertex3fv(p[1]);
-		glVertex3fv(p[2]);
-		glVertex3fv(p[3]);
-		glEnd();
-#endif
-#ifndef LINE
-		glBegin(GL_QUADS);
-		normal(p[0], nv);
-		hess(p[0], h);
-		hs(h, hstar);
-		curvaturaGaussiana[0] = curvatura_gaussiana(nv, h, hstar);
-		glColor3f(-(curvaturaGaussiana[0] - 1) / 2, (curvaturaGaussiana[0] + 1) / 2, 0);
-		//glNormal3fv(nv);
-		glVertex3fv(p[0]);
+		if (GaussOrMedian == 1) {
+			glBegin(GL_QUADS);
+			normal(p[0], nv);
+			hess(p[0], h);
+			hs(h, hstar);
+			curvaturaMedia[0] = curvatura_media(nv, h);
+			glColor3f(-curvaturaMedia[0], 0, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[0]);
 
-		normal(p[1], nv);
-		hess(p[1], h);
-		hs(h, hstar);
-		curvaturaGaussiana[1] = curvatura_gaussiana(nv, h, hstar);
-		glColor3f( - (curvaturaGaussiana[1] - 1) / 2, (curvaturaGaussiana[1] + 1) / 2, 0);
-		//glNormal3fv(nv);
-		glVertex3fv(p[1]);
+			normal(p[1], nv);
+			hess(p[1], h);
+			hs(h, hstar);
+			curvaturaMedia[1] = curvatura_media(nv, h);
+			glColor3f(-curvaturaMedia[1], 0, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[1]);
 
-		normal(p[2], nv);
-		hess(p[2], h);
-		hs(h, hstar);
-		curvaturaGaussiana[2] = curvatura_gaussiana(nv, h, hstar);
-		glColor3f( - (curvaturaGaussiana[2] - 1) / 2, (curvaturaGaussiana[2] + 1) / 2, 0);
-		//glNormal3fv(nv);
-		glVertex3fv(p[2]);
+			normal(p[2], nv);
+			hess(p[2], h);
+			hs(h, hstar);
+			curvaturaMedia[2] = curvatura_media(nv, h);
+			glColor3f(-curvaturaMedia[2], 0,0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[2]);
 
-		normal(p[3], nv);
-		hess(p[3], h);
-		hs(h, hstar);
-		curvaturaGaussiana[3] = curvatura_gaussiana(nv, h, hstar);
-		glColor3f( - (curvaturaGaussiana[3] - 1) / 2, (curvaturaGaussiana[3] + 1) / 2, 0);
-		//glNormal3fv(nv);
-		glVertex3fv(p[3]);
-		glEnd();
-
-		/*bool temgauss[4] = {false,false,false,false};
-		if (curvaturaGaussiana[0] * curvaturaGaussiana[1] < 0) {
-			xyzG[0][0] = (p[0][0] + p[1][0]) / 2;
-			xyzG[0][1] = (p[0][1] + p[1][1]) / 2;
-			xyzG[0][2] = (p[0][2] + p[1][2]) / 2;
-			temgauss[0] = true;
-		}
-		if (curvaturaGaussiana[0] * curvaturaGaussiana[2] < 0) {
-			xyzG[1][0] = (p[0][0] + p[2][0]) / 2;
-			xyzG[1][1] = (p[0][1] + p[2][1]) / 2;
-			xyzG[1][2] = (p[0][2] + p[2][2]) / 2;
-			temgauss[1] = true;
-		}
-		if (curvaturaGaussiana[1] * curvaturaGaussiana[3] < 0) {
-			xyzG[2][0] = (p[1][0] + p[3][0]) / 2;
-			xyzG[2][1] = (p[1][1] + p[3][1]) / 2;
-			xyzG[2][2] = (p[1][2] + p[3][2]) / 2;
-			temgauss[2] = true;
-		}
-		if (curvaturaGaussiana[2] * curvaturaGaussiana[3] < 0) {
-			xyzG[3][0] = (p[3][0] + p[2][0]) / 2;
-			xyzG[3][1] = (p[3][1] + p[2][1]) / 2;
-			xyzG[3][2] = (p[3][2] + p[2][2]) / 2;
-			temgauss[3] = true;
-		}
-		if (temgauss[0] && temgauss[1]) {
-			glColor3f(0, 0, 1);
-			glBegin(GL_LINE);
-			glVertex3fv(xyzG[0]);
-			glVertex3fv(xyzG[1]);
+			normal(p[3], nv);
+			hess(p[3], h);
+			hs(h, hstar);
+			curvaturaMedia[3] = curvatura_media(nv, h);
+			glColor3f(-curvaturaMedia[3], 0, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[3]);
 			glEnd();
 		}
-		if (temgauss[2] && temgauss[1]) {
-			glColor3f(0, 0, 1);
-			glBegin(GL_LINE);
-			glVertex3fv(xyzG[2]);
-			glVertex3fv(xyzG[1]);
+		else {
+			glBegin(GL_QUADS);
+			normal(p[0], nv);
+			hess(p[0], h);
+			hs(h, hstar);
+			curvaturaGaussiana[0] = curvatura_gaussiana(nv, h, hstar);
+			glColor3f(-(curvaturaGaussiana[0] - 1) / 2, (curvaturaGaussiana[0] + 1) / 2, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[0]);
+
+			normal(p[1], nv);
+			hess(p[1], h);
+			hs(h, hstar);
+			curvaturaGaussiana[1] = curvatura_gaussiana(nv, h, hstar);
+			glColor3f(-(curvaturaGaussiana[1] - 1) / 2, (curvaturaGaussiana[1] + 1) / 2, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[1]);
+
+			normal(p[2], nv);
+			hess(p[2], h);
+			hs(h, hstar);
+			curvaturaGaussiana[2] = curvatura_gaussiana(nv, h, hstar);
+			glColor3f(-(curvaturaGaussiana[2] - 1) / 2, (curvaturaGaussiana[2] + 1) / 2, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[2]);
+
+			normal(p[3], nv);
+			hess(p[3], h);
+			hs(h, hstar);
+			curvaturaGaussiana[3] = curvatura_gaussiana(nv, h, hstar);
+			glColor3f(-(curvaturaGaussiana[3] - 1) / 2, (curvaturaGaussiana[3] + 1) / 2, 0);
+			//glNormal3fv(nv);
+			glVertex3fv(p[3]);
 			glEnd();
 		}
-		if (temgauss[3] && temgauss[2]) {
-			glColor3f(0, 0, 1);
-			glBegin(GL_LINE);
-			glVertex3fv(xyzG[3]);
-			glVertex3fv(xyzG[2]);
-			glEnd();
-		}
-		if (temgauss[3] && temgauss[1]) {
-			glColor3f(0, 0, 1);
-			glBegin(GL_LINE);
-			glVertex3fv(xyzG[3]);
-			glVertex3fv(xyzG[1]);
-			glEnd();
-		}*/
-#endif
 	}
 
 }

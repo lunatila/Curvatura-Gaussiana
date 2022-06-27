@@ -8,7 +8,9 @@ class Function
 {
 	float xmin, xmax, ymin, ymax, zmin, zmax;
 	int n;
+	
 public:
+	int GaussOrMedian;
 	Function(float xm = -1, float xM = 1,
 		float ym = -1, float yM = 1,
 		float zm = -1, float zM = 1, int p = 10)
@@ -75,6 +77,16 @@ public:
 			(grad[0] * hess_star[1] + grad[1] * hess_star[4] + grad[2] * hess_star[7]) * grad[1] +
 			(grad[0] * hess_star[2] + grad[1] * hess_star[5] + grad[2] * hess_star[8]) * grad[2]) /
 			(modulo_grad * modulo_grad * modulo_grad * modulo_grad);
+	}
+	float curvatura_media(float* grad, float* hess)
+	{
+		float modulo_grad = sqrt(grad[0] * grad[0] + grad[1] * grad[1] + grad[2] * grad[2]);
+		float traceH = hess[0] + hess[4] + hess[8];
+		float GxHxGt = (grad[0] * hess[0] + grad[1] * hess[3] + grad[2] * hess[6]) * grad[0] +
+			(grad[0] * hess[1] + grad[1] * hess[4] + grad[2] * hess[7]) * grad[1] +
+			(grad[0] * hess[2] + grad[1] * hess[5] + grad[2] * hess[8]) * grad[2];
+
+		return (GxHxGt - modulo_grad * modulo_grad * traceH) / (2 * modulo_grad * modulo_grad * modulo_grad);
 	}
 	
 

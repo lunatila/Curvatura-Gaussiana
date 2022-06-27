@@ -33,6 +33,7 @@ int main(int argc, char**argv)
 {
     float dx, dy, dz;
     float cgmax = 0, cgmin = 0;
+    float cmax = 0, cmin = 0;
 
     for (dx = -1; dx < 1; dx += 0.2) {
         for (dy = -1; dy < 1; dy += 0.2) {
@@ -48,15 +49,22 @@ int main(int argc, char**argv)
                 F.hs(h, hstar);
 
                 float cg = F.curvatura_gaussiana(grad, h, hstar);
+                float cm = F.curvatura_media(grad, h);
 
                 if (cg > cgmax)
                     cgmax = cg;
                 if (cg < cgmin)
                     cgmin = cg;
+                if (cm > cmax)
+                    cmax = cm;
+                if (cm < cmin)
+                    cmin = cm;
             }
         }
     }
     cout << cgmax << ", " << cgmin << endl;
+    cout << cmax << ", " << cmin << endl;
+    cin >> F.GaussOrMedian;
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
